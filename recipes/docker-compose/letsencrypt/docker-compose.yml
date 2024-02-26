@@ -1,7 +1,7 @@
 version: '3'
 services:
   thumbor:
-    image: ghcr.io/minimalcompact/thumbor
+    image: ghcr.io/minimalcompact/thumbor:7.4.7
     environment:
       # VIRTUAL_HOST is picked up by nginx-proxy. It's set to your $HOSTNAME
       # but you can hard-code it, e.g. thumbor.example.com
@@ -23,6 +23,9 @@ services:
       - RESULT_STORAGE=thumbor.result_storages.no_storage
       - RESULT_STORAGE_STORES_UNSAFE=True
       - STORAGE=thumbor.storages.file_storage
+      - SECURITY_KEY=$SECURITY_KEY
+      - ALLOW_UNSAFE_URL=False
+      - ENGINE=thumbor_wand_engine
     restart: always
     networks:
       - app
